@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #00000050;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00000080;
+}
+
+/* Для Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #00000050 transparent;
+}
+html:hover {
+  scrollbar-color: #00000080 transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background: #ffffff50;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ffffff80;
+  }
+  html {
+    scrollbar-color: #ffffff50 transparent;
+  }
+  html:hover {
+    scrollbar-color: #ffffff80 transparent;
+  }
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #ffffff50;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #ffffff80;
+}
+.dark html {
+  scrollbar-color: #ffffff50 transparent;
+}
+.dark html:hover {
+  scrollbar-color: #ffffff80 transparent;
+}
