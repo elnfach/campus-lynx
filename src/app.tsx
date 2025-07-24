@@ -5,7 +5,7 @@ import About from "@/pages/about/about";
 import NotFound from "@/pages/404/404";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import {ThemeProvider} from "@/components/themeProvider.tsx";
+import {ThemeProvider} from "@/components/theme/themeProvider.tsx";
 
 function App() {
   return (
