@@ -1,11 +1,11 @@
-import { useDarkMode } from "@/hooks/useDarkMode"
+import {useTheme} from "@/hooks/useTheme";
 
 export const DarkModeToggle = () => {
-    const { isDarkMode, toggleDarkMode } = useDarkMode();
+    const { isDarkMode, toggleTheme } = useTheme();
 
     return (
         <button
-            onClick={toggleDarkMode}
+            onClick={toggleTheme}
             className="p-2 rounded-full focus:outline-none"
             aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
         >

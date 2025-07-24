@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { ThemeContext } from '@/hooks/useTheme';
+import React, { useEffect, useState } from 'react';
 
-export const useDarkMode = () => {
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
         if (typeof window !== 'undefined') {
             const savedMode = localStorage.getItem('darkMode');
@@ -18,9 +19,13 @@ export const useDarkMode = () => {
         }
     }, [isDarkMode]);
 
-    const toggleDarkMode = () => {
+    const toggleTheme = () => {
         setIsDarkMode(!isDarkMode);
     };
 
-    return { isDarkMode, toggleDarkMode };
+    return (
+        <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+            {children}
+        </ThemeContext.Provider>
+    );
 };
