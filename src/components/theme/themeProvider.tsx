@@ -1,9 +1,15 @@
 import { ThemeContext } from '@/hooks/useTheme.ts';
-import {darkTheme, lightTheme} from "@/components/theme/themes.ts";
 import React, {useEffect, useState} from 'react';
+import {darkTheme, lightTheme} from "@/components/theme/themes.ts";
+
+interface ThemeProviderProps {
+    children: React.ReactNode;
+}
 
 export const ThemeProvider = (
-    props: React.ReactNode
+    {
+        children
+    }:  ThemeProviderProps
 ) => {
     const [isDark, setIsDark] = useState(() => {
         const savedTheme = localStorage.getItem('theme');
@@ -19,7 +25,7 @@ export const ThemeProvider = (
 
     return (
         <ThemeContext.Provider value={{ theme, isDark, toggleTheme }}>
-            {props}
+            {children}
         </ThemeContext.Provider>
     );
 };
