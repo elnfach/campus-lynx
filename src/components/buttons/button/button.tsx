@@ -1,5 +1,4 @@
 import type {ButtonProps} from "@/components/buttons/interface/buttonProps.ts";
-import React from "react";
 import {useTheme} from "@/hooks/useTheme.ts";
 
 const Button = (
