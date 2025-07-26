@@ -6,26 +6,32 @@ import NotFound from "@/pages/404/404";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import {ThemeProvider} from "@/components/theme/themeProvider.tsx";
+import Scaffold from "@/components/containers/scaffold.tsx";
 
 function App() {
   return (
     <ThemeProvider>
-        <Header/>
-        <Router>
-            <Routes>
-                <Route
-                    path="/"
-                    element={<Home/>}
-                />
-                <Route
-                    path="/about"
-                    element={<About/>}/>
-                <Route
-                    path="*"
-                    element={<NotFound/>}/>
-            </Routes>
-        </Router>
-        <Footer/>
+        <Scaffold
+            header={<Header />}
+            footer={<Footer />}
+            contentColor={""}
+            containerColor={""}
+        >
+            <Router>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<Home/>}
+                    />
+                    <Route
+                        path="/about"
+                        element={<About/>}/>
+                    <Route
+                        path="*"
+                        element={<NotFound/>}/>
+                </Routes>
+            </Router>
+        </Scaffold>
     </ThemeProvider>
   )
 }
