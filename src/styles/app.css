@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+.logo {
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 .scrollbar-hide::-webkit-scrollbar {
