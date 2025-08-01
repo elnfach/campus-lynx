@@ -7,6 +7,10 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import {ThemeProvider} from "@/components/theme/themeProvider.tsx";
 import Scaffold from "@/components/containers/scaffold.tsx";
+import {ProtectedRoute} from "@/components/protectedRoute.tsx";
+import {AdminPanel} from "@/pages/admin/adminPanel.tsx";
+import {Login} from "@/pages/login/login.tsx";
+import {AuthRoute} from "@/components/authRoute.tsx";
 
 function App() {
   return (
@@ -29,6 +33,21 @@ function App() {
                     <Route
                         path="*"
                         element={<NotFound/>}/>
+                    <Route
+                        path={"login"}
+                        element={
+                            <AuthRoute>
+                                <Login/>
+                            </AuthRoute>
+                        }
+                    />
+                    <Route
+                        path={"/admin"}
+                        element={
+                            <ProtectedRoute>
+                                <AdminPanel />
+                            </ProtectedRoute>
+                        }/>
                 </Routes>
             </Router>
         </Scaffold>
