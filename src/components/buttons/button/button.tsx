@@ -3,7 +3,9 @@ import {useTheme} from "@/hooks/useTheme.ts";
 
 const Button = (
     {
-        className = "",
+        className = `
+            ${useTheme().theme.colors.onPrimaryContainer}
+        `,
         disabled = false,
         fullWidth = false,
         text,
@@ -12,12 +14,12 @@ const Button = (
 ) => {
     const { theme } = useTheme();
 
-    const baseClasses = 'hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-md transition duration-200';
+    const baseClasses = 'font-bold py-3 px-4 rounded-md transition duration-200';
     const buttonClasses = `
     ${baseClasses}
-    ${theme.colors.primary} 
-    ${theme.colors.onPrimary} 
-    ${theme.shapes.medium}  
+    ${theme.colors.onPrimaryContainer}
+    ${theme.colors.primaryContainer}
+    ${theme.shapes.small}
     ${fullWidth ? 'w-full' : ''}
     ${disabled ? "opacity-50 cursor-not-allowed" : ""}
     ${className}
