@@ -3,9 +3,7 @@ import {useTheme} from "@/hooks/useTheme.ts";
 
 const Button = (
     {
-        className = `
-            ${useTheme().theme.colors.onPrimaryContainer}
-        `,
+        className = '',
         disabled = false,
         fullWidth = false,
         text,
