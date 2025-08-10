@@ -1,58 +1,64 @@
 import '@styles/app.css'
 import Home from "@/pages/home/home";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import About from "@/pages/about/about";
-import NotFound from "@/pages/404/404";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import {ThemeProvider} from "@/components/theme/themeProvider.tsx";
-import Scaffold from "@/components/containers/scaffold.tsx";
-import {ProtectedRoute} from "@/components/protectedRoute.tsx";
+import ProtectedRoute from "@/components/protectedRoute.tsx";
 import {AdminPanel} from "@/pages/admin/adminPanel.tsx";
 import {Login} from "@/pages/login/login.tsx";
+import DefaultLayout from "@/components/layouts/defaultLayout.tsx";
+import AdminLayout from "@/components/layouts/adminLayout.tsx";
+import NotFound from "@/pages/404/404.tsx";
+import EmployeeLayout from "@/components/layouts/employeeLayout.tsx";
+import {EmployeePanel} from "@/pages/employee/employeePanel.tsx";
 import {AuthRoute} from "@/components/authRoute.tsx";
 
-function App() {
-  return (
-    <ThemeProvider>
-        <Scaffold
-            header={<Header />}
-            footer={<Footer />}
-            contentColor={""}
-            containerColor={""}
-        >
-            <Router>
-                <Routes>
-                    <Route
-                        path="/"
-                        element={<Home/>}
-                    />
-                    <Route
-                        path="/about"
-                        element={<About/>}/>
-                    <Route
-                        path="*"
-                        element={<NotFound/>}/>
-                    <Route
-                        path={"login"}
-                        element={
-                            <AuthRoute>
-                                <Login/>
-                            </AuthRoute>
-                        }
-                    />
-                    <Route
-                        path={"/admin"}
-                        element={
-                            <ProtectedRoute>
-                                <AdminPanel />
-                            </ProtectedRoute>
-                        }/>
-                </Routes>
-            </Router>
-        </Scaffold>
-    </ThemeProvider>
-  )
+export default function App() {
+    return (
+        <ThemeProvider>
+            <Routes>
+                <Route
+                    path='/'
+                    element={<DefaultLayout/>}
+                    children={
+                        [
+                            <Route index={true} element={<Home/>}/>,
+                            <Route path='about' element={<About/>}/>,
+                            <Route
+                                path='login'
+                                children={
+                                    <Route element={<AuthRoute />}>
+                                        <Route index element={<Login />} />
+                                    </Route>
+                                }
+                            />,
+                            <Route path='*' element={<NotFound/>}/>,
+                        ]
+                    }
+                />
+                <Route
+                    path='admin'
+                    element={<AdminLayout/>}
+                    children={
+                        [
+                            <Route element={<ProtectedRoute requiredRole="admin" />}>
+                                <Route index element={<AdminPanel />} />
+                            </Route>
+                        ]
+                    }
+                />
+                <Route
+                    path='employee'
+                    element={<EmployeeLayout/>}
+                    children={
+                        [
+                            <Route element={<ProtectedRoute requiredRole="employee" />}>
+                                <Route index element={<EmployeePanel />} />
+                            </Route>
+                        ]
+                    }
+                />
+            </Routes>
+        </ThemeProvider>
+    )
 }
-
-export default App
