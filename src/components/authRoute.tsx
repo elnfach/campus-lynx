@@ -1,25 +1,27 @@
-import React, { useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {Navigate, Outlet, useLocation} from 'react-router-dom';
 import {ModernLoader} from "@/components/loading/modernLoader.tsx";
+import { auth } from '@/config/firebase';
 
-export const AuthRoute = (
-    {
-        children
-    }: { children: React.ReactNode }
-) => {
-    const { user, loading } = useAuth();
-    const navigate = useNavigate();
+export const AuthRoute = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
-        if (!loading && user) {
-            navigate('/admin');
-        }
-    }, [user, loading, navigate]);
+        return auth.onAuthStateChanged((user) => {
+            setIsAuthenticated(!!user);
+            setIsLoading(false);
+        });
+    }, []);
 
-    if (loading || user) {
-        return <ModernLoader/>;
+    if (isLoading) {
+        return <ModernLoader />;
     }
 
-    return <>{children}</>;
+    if (isAuthenticated) {
+        return <Navigate to="/" replace state={{ from: location }} />;
+    }
+
+    return <Outlet />;
 };

@@ -1,34 +1,68 @@
 import { useNavigate } from 'react-router-dom'
+import {useTheme} from "@/hooks/useTheme.ts";
+import Button from "@/components/buttons/button/button.tsx";
 
 function NotFound() {
+    const {theme} = useTheme();
     const navigate = useNavigate()
 
+    const background = `
+        min-h-screen bg-gradient-to-b to-zinc-800
+        flex flex-col items-center justify-center p-4
+        ${theme.colors.background}
+    `
+
+    const surfaceStyle = `
+        rounded-xl shadow-lg p-8 md:p-12
+        ${theme.colors.surface}
+        ${theme.colors.onSurface}
+    `;
+
+    const titleStyle = `
+        text-9xl font-bold mb-4
+        
+        ${theme.colors.onPrimaryContainer}
+    `;
+
+    const onSurface = `
+        text-2xl font-semibold mb-2
+        
+        ${theme.colors.onSurface}
+    `;
+
+    const descStyle = `
+        mb-8
+        ${theme.colors.onSurface}
+    `;
+
+    const backButtonStyle = `
+        ${theme.colors.secondaryContainer}
+        ${theme.colors.onSecondaryContainer}
+    `;
+
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center justify-center p-4">
+        <div className={background}>
             <div className="max-w-2xl w-full text-center">
-                <div className="bg-white rounded-xl shadow-lg p-8 md:p-12">
-                    <h1 className="text-9xl font-bold text-blue-600 mb-4">404</h1>
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                <div className={surfaceStyle}>
+                    <h1 className={titleStyle}>404</h1>
+                    <h2 className={onSurface}>
                         Страница не найдена
                     </h2>
-                    <p className="text-gray-600 mb-8">
+                    <p className={descStyle}>
                         Запрошенная вами страница не существует или была перемещена.
                         Пожалуйста, проверьте URL или воспользуйтесь навигацией по сайту.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <button
+                        <Button
                             onClick={() => navigate(-1)}
-                            className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition duration-200"
-                        >
-                            Назад
-                        </button>
-                        <button
+                            text={"Назад"}
+                            className={backButtonStyle}
+                        />
+                        <Button
                             onClick={() => navigate('/')}
-                            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200"
-                        >
-                            На главную
-                        </button>
+                            text={"На главную"}
+                        />
                     </div>
                 </div>
             </div>

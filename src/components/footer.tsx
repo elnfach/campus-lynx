@@ -6,8 +6,16 @@ import { faGithub, faTelegram, faVk } from '@fortawesome/free-brands-svg-icons';
 
 export default function Footer()
 {
+    //const {theme} = useTheme();
+
+    const containerStyle = `
+        footer bg-slate-600 dark:bg-stone-950
+        p-2
+        
+    `
+
     return (
-        <footer className="footer">
+        <footer className={containerStyle}>
             <div className="footer-content">
                 <div className="social-links">
                     <a
