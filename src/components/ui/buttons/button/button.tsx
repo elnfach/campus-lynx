@@ -1,4 +1,5 @@
 import React from "react";
+import "@/assets/scss/ui/buttons/button.scss"
 
 type InternalButtonType = 'button' | 'submit' | 'reset' | undefined
 
