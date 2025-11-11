@@ -1,0 +1,83 @@
+:root[theme="light"] {
+  --primary: #415f91;
+  --on-primary: #ffffff;
+  --primary-container: #d6e3ff;
+  --on-primary-container: #284777;
+  --inverse-primary: #aac7ff;
+
+  --secondary: #565f71;
+  --on-secondary: #ffffff;
+  --secondary-container: #dae2f9;
+  --on-secondary-container: #3e4759;
+
+  --tertiary: #705575;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #fad8fd;
+  --on-tertiary-container: #573e5c;
+
+  --surface: #ffffff;
+  --surface-dim: #d9d9e0;
+  --surface-bright: #f9f9ff;
+  --on-surface: #191c20;
+  --on-surface-variant: #44474e;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f3f3fa;
+  --surface-container: #ededf4;
+  --surface-container-high: #e7e8ee;
+  --surface-container-highest: #e2e2e9;
+  --inverse-surface: #2e3036;
+  --inverse-on-surface: #f0f0f7;
+
+  --outline: #74777f;
+  --outline-variant: #c4c6d0;
+
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+
+  --scrim: #000000;
+  --shadow: #000000;
+}
+
+:root[theme='dark'] {
+  --primary: #aac7ff;
+  --on-primary: #0a305f;
+  --primary-container: #284777;
+  --on-primary-container: #d6e3ff;
+  --inverse-primary: #2e3036;
+
+  --secondary: #bec6dc;
+  --on-secondary: #283141;
+  --secondary-container: #3e4759;
+  --on-secondary-container: #dae2f9;
+
+  --tertiary: #ddbce0;
+  --on-tertiary: #3f2844;
+  --tertiary-container: #573e5c;
+  --on-tertiary-container: #fad8fd;
+
+  --surface: #111318;
+  --surface-dim: #111318;
+  --surface-bright: #37393e;
+  --on-surface: #e2e2e9;
+  --on-surface-variant: #c4c6d0;
+  --surface-container-lowest: #0c0e13;
+  --surface-container-low: #191c20;
+  --surface-container: #1d2024;
+  --surface-container-high: #282a2f;
+  --surface-container-highest: #33353a;
+  --inverse-surface: #e2e2e9;
+  --inverse-on-surface: #2e3036;
+
+  --outline: #8e9099;
+  --outline-variant: #44474e;
+
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+
+  --scrim: #000000;
+  --shadow: #000000;
+}

@@ -1,19 +1,21 @@
 import {useTheme} from "@/hooks/useTheme";
+import {MoonIcon, SunIcon} from "@heroicons/react/16/solid";
 
 export const DarkModeToggle = () => {
     const { isDark, toggleTheme } = useTheme();
 
+    const styles = `
+        rounded-full focus:outline-none
+        p-1 h-8 w-8 ml-3
+    `
+
     return (
         <button
             onClick={toggleTheme}
-            className="p-2 rounded-full focus:outline-none"
+            className={styles}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
         >
-            {isDark ? (
-                <span className="text-yellow-300">☀️</span>
-            ) : (
-                <span className="text-gray-700">🌙</span>
-            )}
+            {isDark ? <SunIcon /> : <MoonIcon />}
         </button>
     );
 };

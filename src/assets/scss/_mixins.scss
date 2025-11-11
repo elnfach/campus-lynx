@@ -1,0 +1,21 @@
+@use "@/assets/scss/variables";
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key(variables.$breakpoints, $breakpoint) {
+    $value: map-get(variables.$breakpoints, $breakpoint);
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "Undefined breakpoint: #{$breakpoint}";
+  }
+}
+
+@mixin respond-to-max($breakpoint) {
+  @if map-has-key(variables.$breakpoints, $breakpoint) {
+    $value: map-get(variables.$breakpoints, $breakpoint) - 1px;
+    @media (max-width: $value) {
+      @content;
+    }
+  }
+}

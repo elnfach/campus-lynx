@@ -1,12 +1,11 @@
-import content from "@/config/common";
+import content from "@/config/common.tsx";
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
 import {useState, useEffect, useRef} from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/components/logo.tsx";
 import {DarkModeToggle} from "@/components/darkModeToggle.tsx";
 import Menu from "@/components/menu.tsx";
-import ToggleIconButton from "@/components/buttons/toggleIconButton.tsx";
-import {useTheme} from "@/hooks/useTheme.ts";
+import ToggleIconButton from "@/components/ui/buttons/toggleIconButton.tsx";
 import {SmartLink} from "@/components/link.tsx";
 
 export interface HeaderBaseProps {
@@ -15,7 +14,6 @@ export interface HeaderBaseProps {
 }
 
 const Header = () => {
-    const {theme} = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const headerRef = useRef<HTMLDivElement>(null);
     const [headerHeight, setHeaderHeight] = useState(0);
@@ -30,11 +28,6 @@ const Header = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const surfaceStyle = `
-        sticky top-0 z-50 shadow-sm
-        ${theme.colors.surface}
-    `
-
     const navStyle = `
         mx-auto px-4 sm:px-6 py-2 sm:py-3 flex items-center justify-between gap-4
         
@@ -43,13 +36,10 @@ const Header = () => {
     const navItemsStyle = `
         duration-200
         whitespace-nowrap
-        ${theme.colors.onSurface}
-        ${theme.colors.onSurfaceHover}
-        ${theme.typography.h6}
     `
 
     return (
-        <header className={surfaceStyle}>
+        <header className="sticky top-0 z-50 shadow-sm surface-color">
             <nav
                 ref={headerRef}
                 className={navStyle}

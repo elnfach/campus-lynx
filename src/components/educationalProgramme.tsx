@@ -1,5 +1,5 @@
-import H1 from "@/components/text/h1.tsx";
-
+import Text from "@/components/ui/text/text.tsx";
+import Modifier from "@/components/ui/modifier/modifier.tsx";
 
 export default function EducationalProgramme()
 {
@@ -13,7 +13,10 @@ export default function EducationalProgramme()
 
     return (
         <div className={surfaceStyle}>
-            <H1 className="text-left text-university-primary mb-8">Программы обучения</H1>
+            <Text
+                modifier={Modifier.new().margin(0,0,0,8)}
+                text={"Программы обучения"}
+            />
         </div>
     )
 }

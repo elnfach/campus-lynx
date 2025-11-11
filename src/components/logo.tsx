@@ -1,5 +1,5 @@
 import { useStorageUrl } from "@/hooks/useStorageUrl";
-import content from "@/config/common.ts";
+import content from "@/config/common.tsx";
 import {useTheme} from "@/hooks/useTheme";
 
 export default function Logo()

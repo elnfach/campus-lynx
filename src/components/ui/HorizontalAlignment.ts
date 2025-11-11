@@ -1,0 +1,1 @@
+export type HorizontalAlignment = 'start' | 'center' | 'end';

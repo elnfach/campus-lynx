@@ -1,9 +1,9 @@
-import Carousel from "@/components/carousel/carousel.tsx";
-import EducationalFormCard from "@/components/cards/educationalForm/educationalFormCard.tsx";
-import type EducationalFormItem from "@/components/cards/educationalForm/educationalFormItem.ts";
+import Carousel from "@/components/ui/carousel/carousel.tsx";
+import EducationalFormCard from "@/components/ui/cards/educationalForm/educationalFormCard.tsx";
+import type EducationalFormItem from "@/components/ui/cards/educationalForm/educationalFormItem.ts";
 import {AcademicCapIcon, ClockIcon, ComputerDesktopIcon, MoonIcon, SunIcon, UserIcon} from "@heroicons/react/16/solid";
-import H1 from "@/components/text/h1.tsx";
-
+import Text, {TextAlign} from "@/components/ui/text/text.tsx";
+import Modifier from "@/components/ui/modifier/modifier.tsx";
 
 export default function EducationalForm()
 {
@@ -51,7 +51,10 @@ export default function EducationalForm()
 
     return (
         <div className={surfaceStyle}>
-            <H1 className="text-left text-university-primary mb-8">Формы обучения</H1>
+            <Text text={"Формы обучения"}
+                  textAlign={TextAlign.Left}
+                  modifier={Modifier.new().margin(0,0,0,8)}
+            />
             <Carousel items={educationItems} Card={EducationalFormCard}/>
         </div>
     )

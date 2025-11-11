@@ -4,14 +4,12 @@ import {Route, Routes} from 'react-router-dom';
 import About from "@/pages/about/about";
 import {ThemeProvider} from "@/components/theme/themeProvider.tsx";
 import ProtectedRoute from "@/components/protectedRoute.tsx";
-import {AdminPanel} from "@/pages/admin/adminPanel.tsx";
 import {Login} from "@/pages/login/login.tsx";
 import DefaultLayout from "@/components/layouts/defaultLayout.tsx";
-import AdminLayout from "@/components/layouts/adminLayout.tsx";
 import NotFound from "@/pages/404/404.tsx";
 import EmployeeLayout from "@/components/layouts/employeeLayout.tsx";
-import {EmployeePanel} from "@/pages/employee/employeePanel.tsx";
 import {AuthRoute} from "@/components/authRoute.tsx";
+import {Profile} from "@/pages/profile/profile.tsx";
 
 export default function App() {
     return (
@@ -37,23 +35,12 @@ export default function App() {
                     }
                 />
                 <Route
-                    path='admin'
-                    element={<AdminLayout/>}
-                    children={
-                        [
-                            <Route element={<ProtectedRoute requiredRole="admin" />}>
-                                <Route index element={<AdminPanel />} />
-                            </Route>
-                        ]
-                    }
-                />
-                <Route
-                    path='employee'
+                    path='profile'
                     element={<EmployeeLayout/>}
                     children={
                         [
-                            <Route element={<ProtectedRoute requiredRole="employee" />}>
-                                <Route index element={<EmployeePanel />} />
+                            <Route element={<ProtectedRoute />}>
+                                <Route index element={<Profile />} />
                             </Route>
                         ]
                     }

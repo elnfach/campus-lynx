@@ -1,0 +1,25 @@
+@use "@/assets/scss/ui/layout/layout";
+@use "@/assets/scss/variables";
+
+@mixin card-variant(
+  $direction,
+  $gap,
+  $max-width,
+  $padding,
+  $overflow: hidden,
+)
+{
+  max-width: $max-width;
+  padding: $padding;
+
+  margin: {
+    left: auto;
+    right: auto;
+  };
+  overflow: $overflow;
+
+  @include layout.surface-variant(
+                  $direction, space-between, center, no-wrap,
+                  $gap, variables.$radius-lg
+  );
+}

@@ -1,0 +1,62 @@
+@use "@/app/core/styles/themes";
+@use "@/assets/scss/variables";
+
+@mixin layout-variant(
+  $border-radius: variables.$radius-lg,
+) {
+  border: none;
+  border-radius: $border-radius;
+}
+
+@mixin surface-variant(
+  $direction,
+  $justify,
+  $align,
+  $wrap,
+  $gap,
+  $border-radius,
+) {
+  @include layout-variant(
+                  $border-radius
+  );
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+  gap: $gap;
+  
+  display: flex;
+}
+
+@mixin row-variant(
+  $gap: 0,
+  $border-radius,
+) {
+  @include surface-variant(
+                  row, flex-start, stretch, no-wrap,
+                  $gap,
+                  $border-radius
+  );
+}
+
+@mixin column-variant(
+  $gap: 0,
+  $border-radius,
+) {
+  @include surface-variant(
+                  column, flex-start, stretch, no-wrap,
+                  $gap, $border-radius
+  );
+}
+
+.row {
+  @include row-variant(
+                  0, 0
+  )
+}
+
+.column {
+  @include column-variant(
+                  0, 0
+  )
+}

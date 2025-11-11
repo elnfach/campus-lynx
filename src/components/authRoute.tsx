@@ -1,27 +1,13 @@
-import {useEffect, useState} from 'react';
-import {Navigate, Outlet, useLocation} from 'react-router-dom';
-import {ModernLoader} from "@/components/loading/modernLoader.tsx";
-import { auth } from '@/config/firebase';
+import {Navigate, Outlet} from 'react-router-dom';
+import {ModernLoader} from "@/components/ui/loading/modernLoader.tsx";
+import {useAuth} from "@/hooks/useAuth.ts";
 
 export const AuthRoute = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const location = useLocation();
+    const {user, loading} = useAuth();
 
-    useEffect(() => {
-        return auth.onAuthStateChanged((user) => {
-            setIsAuthenticated(!!user);
-            setIsLoading(false);
-        });
-    }, []);
-
-    if (isLoading) {
+    if (loading) {
         return <ModernLoader />;
     }
 
-    if (isAuthenticated) {
-        return <Navigate to="/" replace state={{ from: location }} />;
-    }
-
-    return <Outlet />;
+    return user? <Navigate to="/profile" replace /> : <Outlet />;
 };

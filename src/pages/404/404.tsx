@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import {useTheme} from "@/hooks/useTheme.ts";
-import Button from "@/components/buttons/button/button.tsx";
+import Button from "@/components/ui/buttons/button.tsx";
+import Text from "@/components/ui/text/text.tsx";
 
 function NotFound() {
     const {theme} = useTheme();
@@ -35,10 +36,10 @@ function NotFound() {
         ${theme.colors.onSurface}
     `;
 
-    const backButtonStyle = `
+   /* const backButtonStyle = `
         ${theme.colors.secondaryContainer}
         ${theme.colors.onSecondaryContainer}
-    `;
+    `;*/
 
     return (
         <div className={background}>
@@ -56,13 +57,15 @@ function NotFound() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button
                             onClick={() => navigate(-1)}
-                            text={"Назад"}
-                            className={backButtonStyle}
-                        />
+
+                        >
+                            <Text text={"Назад"} />
+                        </Button>
                         <Button
                             onClick={() => navigate('/')}
-                            text={"На главную"}
-                        />
+                        >
+                            <Text text={"На главную"} />
+                        </Button>
                     </div>
                 </div>
             </div>

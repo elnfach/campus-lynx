@@ -1,34 +1,38 @@
 import '@styles/home/home.css'
 import Articles from "@/components/articles"
-import InvitationForm from "@/components/invitationForm"
+import InvitationCard from "@/components/cards/invitationCard.tsx"
 import Present from "@/components/present.tsx";
-import {useTheme} from "@/hooks/useTheme.ts";
 import {Accordion} from "@/components/accordion.tsx";
-import H3 from "@/components/text/h3.tsx";
 import EducationalForm from "@/components/educationalForm.tsx";
 import EducationalProgramme from "@/components/educationalProgramme.tsx";
-import {faqItems} from "@/config/common.ts";
+import {faqItems} from "@/config/common.tsx";
+import Text from "@/components/ui/text/text.tsx";
+import Modifier from "@/components/ui/modifier/modifier.tsx";
+import ChatFab from "@/pages/home/fab.tsx";
+import Button from "@/components/ui/buttons/button.tsx";
+import "@/assets/scss/pages/home.scss"
+import "@/assets/scss/ui/layout/layout.scss"
 
 function Home() {
-    const {theme} = useTheme();
-
-    const baseClasses = 'w-full h-full mx-auto px-6 py-12';
-    const homeClasses = `
-    ${baseClasses}
-    ${theme.colors.background}
-    `;
-
     return (
-        <main className={homeClasses}>
-            <Present/>
-            <InvitationForm/>
-            <H3 className="text-center text-university-primary m-8">Часто задаваемые вопросы</H3>
+        <main className="main-container row surface-color">
+            <InvitationCard/>
+            {/*
+            <Text
+                modifier={Modifier.new().margin(8)}
+                text={"Часто задаваемые вопросы"} />
             <Accordion items={faqItems}/>
             <EducationalForm/>
             <div id="college">
                 <EducationalProgramme/>
             </div>
-            <Articles/>
+            <Articles/>*/}
+            {/*<Button onClick={()=>{}} >
+                <Text
+                    text={"Часто задаваемые вопросы"} />
+            </Button>
+*/}
+            <ChatFab />
         </main>
     );
 }

@@ -1,30 +1,40 @@
 import {useEffect, useState} from 'react';
-import type {User} from 'firebase/auth';
-import {signInWithEmailAndPassword, signOut} from 'firebase/auth';
-import {doc, getDoc, query, where, getDocs, collection} from 'firebase/firestore';
+import {signInWithEmailAndPassword, signOut, onAuthStateChanged} from 'firebase/auth';
+import {query, where, getDocs, collection} from 'firebase/firestore';
 import {auth, database} from '@/config/firebase';
-
-type UserRole = 'admin' | 'employee';
+import type {ClientUser} from '@/models/user/User.ts';
+import {useUserService} from "@/hooks/useUserService.ts";
 
 export const useAuth = () => {
-    const [user, setUser] = useState<User | null>(null);
-    const [userRole, setUserRole] = useState<UserRole | null>(null);
+    const [user, setUser] = useState<ClientUser | null>(null);
     const [loading, setLoading] = useState(true);
     const [attempts, setAttempts] = useState(0);
     const [error, setError] = useState<string | null>(null);
+    const {fetchUser} = useUserService();
 
     useEffect(() => {
-        return auth.onAuthStateChanged(async (firebaseUser) => {
-            if (firebaseUser) {
-                const userDoc = await getDoc(doc(database, 'users', firebaseUser.uid));
-                if (userDoc.exists()) {
-                    setUserRole(userDoc.data().role as UserRole);
+        let isMounted = true;
+        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            if (!isMounted) return;
+            try {
+                if (firebaseUser) {
+                    setUser(await fetchUser(firebaseUser.uid));
+                } else {
+                    setUser(null);
                 }
+            } catch {
+                setError('Ошибка загрузки данных пользователя');
+                setUser(null);
+            } finally {
+                setLoading(false);
             }
-            setUser(firebaseUser);
-            setLoading(false);
         });
-    }, []);
+
+        return () => {
+            isMounted = false;
+            unsubscribe();
+        }
+    });
 
     const loginWithUsername = async (username: string, password: string) => {
         setLoading(true);
@@ -32,54 +42,66 @@ export const useAuth = () => {
 
         if (attempts >= 3) {
             setError('Слишком много попыток. Попробуйте позже.');
+            setLoading(false);
             throw new Error('Too many attempts');
         }
 
         try {
             const q = query(collection(database, 'users'), where('login', '==', username));
-            const querySnapshot = await getDocs(q);
-            if (querySnapshot.empty) {
-                throw new Error('Пользователь не найден');
+            const snapshot = await getDocs(q);
+
+            if (snapshot.empty) {
+                throw new Error('Неверные учетные данные');
             }
-            const userData = querySnapshot.docs[0].data();
-            setUserRole(userData.role as UserRole);
-            await signInWithEmailAndPassword(auth, userData.email, password);
+
+            const data = snapshot.docs[0].data();
+            await signInWithEmailAndPassword(auth, data.email, password);
             setAttempts(0);
-        } catch (err) {
-            setAttempts(prev => prev + 1);
-            setError(err instanceof Error ? err.message : 'Ошибка входа');
-            throw err;
-        } finally {
             setLoading(false);
+        } catch {
+            setAttempts(prev => prev + 1);
+            setError('Неверные учетные данные');
+            setLoading(false);
+            throw new Error('Неверные учетные данные');
         }
     }
 
     const login = async (email: string, password: string) => {
         setLoading(true);
         setError(null);
+
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const userDoc = await getDoc(doc(database, 'users', userCredential.user.uid));
-            if (userDoc.exists()) {
-                setUserRole(userDoc.data().role as UserRole);
-            }
+            await signInWithEmailAndPassword(auth, email, password);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Login failed');
-            throw err;
-        } finally {
+            const errorMessage = err instanceof Error ? err.message : 'Login failed';
+            setError(errorMessage);
             setLoading(false);
+            throw new Error(errorMessage);
         }
     };
 
     const logout = async () => {
         try {
+            setLoading(true);
             await signOut(auth);
-            setUserRole(null);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Logout failed');
-            throw err;
+            const errorMessage = err instanceof Error ? err.message : 'Logout failed';
+            setError(errorMessage);
+            setLoading(false);
+            throw new Error(errorMessage);
         }
     };
 
-    return { user, userRole, loading, error, login, loginWithUsername, logout };
+    const clearError = () => setError(null);
+
+    return {
+        user,
+        loading,
+        error,
+        login,
+        loginWithUsername,
+        logout,
+        clearError,
+        attempts
+    };
 };

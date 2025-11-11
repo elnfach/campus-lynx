@@ -1,0 +1,1 @@
+export type SpaceDistribution = 'between' | 'around' | 'evenly';

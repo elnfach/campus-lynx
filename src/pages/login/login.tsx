@@ -1,29 +1,60 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { ModernLoader } from '@/components/loading/modernLoader';
+import { ModernLoader } from '@/components/ui/loading/modernLoader';
+import {useTheme} from "@/hooks/useTheme.ts";
+import Button, {ButtonType} from "@/components/ui/buttons/button.tsx";
+import Text, {FontWeight} from "@/components/ui/text/text.tsx";
+import Modifier from "@/components/ui/modifier/modifier.tsx";
 
 export const Login = () => {
+    const {theme} = useTheme();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { userRole, loginWithUsername, error, loading } = useAuth();
+    const { loginWithUsername, error, loading } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             await loginWithUsername(username, password);
-            navigate(`/${userRole}`)
+            navigate(`/profile`)
         } catch (err) {
             console.error(err);
         }
     };
 
+    const backgroundStyle = `
+        min-h-screen flex items-center justify-center
+        ${theme.colors.background}
+    `;
+
+    const surfaceStyle = `
+        w-full max-w-md px-8 py-12 rounded-2xl shadow-xl
+        ${theme.colors.surface}
+    `;
+
+    const titleStyle = `
+        text-3xl font-bold mb-2
+        
+        ${theme.colors.onSurface}
+    `;
+
+    /*const enterButtonStyle = `
+        w-full py-3 px-4 
+        font-medium 
+        rounded-lg transition 
+        flex justify-center items-center
+        
+        ${theme.colors.primaryContainer}
+        ${theme.colors.onPrimaryContainer}
+    `;*/
+
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-            <div className="w-full max-w-md px-8 py-12 bg-white rounded-2xl shadow-xl">
+        <div className={backgroundStyle}>
+            <div className={surfaceStyle}>
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Добро пожаловать</h1>
+                    <h1 className={titleStyle}>Добро пожаловать</h1>
                     <p className="text-gray-600">Введите свои учетные данные</p>
                 </div>
 
@@ -37,7 +68,8 @@ export const Login = () => {
                             name="username"
                             type="text"
                             required
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2
+                            focus:ring-indigo-500 focus:border-indigo-500 transition"
                             placeholder="Ваш логин"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -53,7 +85,8 @@ export const Login = () => {
                             name="password"
                             type="password"
                             required
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2
+                            focus:ring-indigo-500 focus:border-indigo-500 transition"
                             placeholder="Ваш пароль"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -66,20 +99,23 @@ export const Login = () => {
                         </div>
                     )}
 
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition flex justify-center items-center"
+                    <Button
+                        onClick={()=>{}}
+                        modifier={Modifier.new().fillMaxWidth().padding(12, 16)}
+                        enabled={!loading}
+                        type={ButtonType.Submit}
                     >
-                        {loading ? (
-                            <>
-                                <ModernLoader />
-                                <span className="ml-2">Вход...</span>
-                            </>
-                        ) : (
-                            'Войти'
-                        )}
-                    </button>
+                        <Text
+                            fontWeight={FontWeight.Medium}
+                            text={loading ? (
+                                <>
+                                    <ModernLoader />
+                                    <span className="ml-2">Вход...</span>
+                                </>
+                            ) : (
+                                'Войти'
+                            )} />
+                    </Button>
                 </form>
 
                 <div className="mt-6 text-center text-sm text-gray-500">

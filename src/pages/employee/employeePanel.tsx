@@ -1,3 +1,4 @@
+/*
 import AdmissionCalender from "@/components/admissionCalender.tsx";
 import React, { useEffect, useState } from "react";
 import {collection, getDocs, onSnapshot} from "firebase/firestore";
@@ -8,53 +9,9 @@ import {CheckCircleIcon, ClockIcon, InboxIcon} from "@heroicons/react/16/solid";
 import { ArrowRightIcon, PauseIcon, ArchiveBoxIcon, XMarkIcon, ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@/hooks/useAuth.ts";
 
-import {Status} from "@/pages/employee/status.ts";
 
-type StatusConfig = {
-    label: string;
-    color: string;
-};
 
-export const STATUS_CONFIG: Record<Status, StatusConfig> = {
-    [Status.IN_PROGRESS]: {
-        label: 'В процессе',
-        color: 'bg-yellow-100 text-yellow-800',
-    },
-    [Status.COMPLETED]: {
-        label: 'Выполнено',
-        color: 'bg-green-100 text-green-800',
-    },
-    [Status.PAUSED]: {
-        label: 'Приостановлено',
-        color: 'bg-red-100 text-red-800',
-    },
-    [Status.ARCHIVED]: {
-        label: 'Архивировано',
-        color: 'bg-gray-100 text-gray-800',
-    },
-};
 
-interface Task {
-    id: string;
-    title: string;
-    status: Status;
-    author: string;
-    createdAt: Timestamp;
-    goal: string;
-    lastModifiedAt: Timestamp;
-    lastModifiedBy: string;
-}
-
-interface Document {
-    id: string;
-    author: string;
-    createdAt: Date;
-    description: string;
-    grade: string;
-    status: Status;
-    tasks: Task[];
-    title: string;
-}
 
 interface DocumentCardProps {
     document: {
@@ -159,7 +116,7 @@ const TaskPanel = ({ document, onClose }: TaskPanelProps) => {
                                     <span className="font-medium text-gray-800">{task.title}</span>
                                     <StatusBadge status={task.status} />
                                 </div>
-                                {/* Дополнительные детали задачи можно добавить здесь */}
+                                {/!* Дополнительные детали задачи можно добавить здесь *!/}
                             </li>
                         ))}
                     </ul>
@@ -238,7 +195,7 @@ export const DocumentListPage = () => {
 
     return (
         <div className="flex h-screen bg-gray-50">
-            {/* Основной контент */}
+            {/!* Основной контент *!/}
             <div className={`flex-1 p-6 transition-all duration-300 ${selectedDoc ? 'mr-80' : ''}`}>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {documents.map(document => (
@@ -251,7 +208,7 @@ export const DocumentListPage = () => {
                 </div>
             </div>
 
-            {/* Боковая панель задач */}
+            {/!* Боковая панель задач *!/}
             {selectedDoc && (
                 <TaskPanel
                     document={selectedDoc}
@@ -335,7 +292,7 @@ export const EmployeePanel = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Заголовок и навигация */}
+            {/!* Заголовок и навигация *!/}
             <div className="bg-white shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <div className="flex justify-between items-center">
@@ -379,9 +336,9 @@ export const EmployeePanel = () => {
                 </div>
             </div>
 
-            {/* Основной контент */}
+            {/!* Основной контент *!/}
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* Карточки с статистикой */}
+                {/!* Карточки с статистикой *!/}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <StatsCard
                         title="Новых заявок сегодня"
@@ -403,7 +360,7 @@ export const EmployeePanel = () => {
                     />
                 </div>
 
-                {/* Контент вкладок */}
+                {/!* Контент вкладок *!/}
                 {activeTab === 'calendar' && (
                     <div className="space-y-6">
                         <div className="bg-white shadow rounded-lg p-6">
@@ -412,15 +369,18 @@ export const EmployeePanel = () => {
                         </div>
 
                         <div className="bg-white shadow rounded-lg p-6">
-                            <h2 className="text-xl font-semibold mb-4">Активные документы</h2>
+                            <h2 className="text-xl font-semibold mb-4">Предстоящие мероприятия</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {documents.map(document => (
-                                    <DocumentCard
-                                        key={document.id}
-                                        document={document}
-                                        onClick={() => setSelectedDoc(document)}
-                                    />
-                                ))}
+                                {documents.length > 0 ? (
+                                    documents.map(document => (
+                                        <DocumentCard
+                                            key={document.id}
+                                            document={document}
+                                            onClick={() => setSelectedDoc(document)}
+                                        />
+                                    ))) : (
+                                    <p className="text-gray-500">Нет запланированных мероприятий</p>)
+                                }
                             </div>
                         </div>
                     </div>
@@ -428,7 +388,7 @@ export const EmployeePanel = () => {
 
                 {activeTab === 'applications' && (
                     <div className="bg-white shadow rounded-lg overflow-hidden">
-                        {/* Контент вкладки заявок */}
+                        {/!* Контент вкладки заявок *!/}
                     </div>
                 )}
 
@@ -442,7 +402,7 @@ export const EmployeePanel = () => {
                 )}
             </main>
 
-            {/* Боковая панель задач */}
+            {/!* Боковая панель задач *!/}
             {selectedDoc && (
                 <TaskPanel
                     document={selectedDoc}
@@ -471,3 +431,4 @@ const StatsCard = ({ title, value, change, icon }: {
         </div>
     </div>
 );
+*/

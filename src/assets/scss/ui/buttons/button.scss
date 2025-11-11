@@ -1,0 +1,43 @@
+@use "@/assets/scss/variables";
+@use "@/assets/scss/ui/layout/layout";
+
+@mixin button-variant(
+  $horizontal-padding,
+  $vertical-padding,
+) {
+  @include layout.row-variant(0, variables.$radius-lg);
+  padding: {
+    left: variables.spacing($horizontal-padding);
+    top: variables.spacing($vertical-padding);
+    right: variables.spacing($horizontal-padding);
+    bottom: variables.spacing($vertical-padding);
+  };
+  font-weight: bold;
+  text-align: center;
+
+  &:hover {
+    translate: 0 -0.1rem;
+  }
+  &:active {
+
+  }
+  &:disabled {
+    opacity: 50%;
+    cursor: not-allowed;
+  }
+}
+
+@mixin animated-button-variant(
+  $property: all,
+  $duration: variables.$default-transition-duration,
+  $timing-function: variables.$default-transition-timing-function,
+) {
+  transition: $property $duration $timing-function;
+}
+
+.button {
+  @include button-variant(
+                  4, 2,
+  );
+  @include animated-button-variant();
+}

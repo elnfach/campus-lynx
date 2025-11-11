@@ -1,23 +1,14 @@
-import Content from "@/config/common"
-import '@styles/components/footer.css';
+import Content from "@/config/common.tsx"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faTelegram, faVk } from '@fortawesome/free-brands-svg-icons';
 
 export default function Footer()
 {
-    //const {theme} = useTheme();
-
-    const containerStyle = `
-        footer bg-slate-600 dark:bg-stone-950
-        p-2
-        
-    `
-
     return (
-        <footer className={containerStyle}>
-            <div className="footer-content">
-                <div className="social-links">
+        <footer className="surface-color p-2">
+            <div className="flex-col center-items p-8 g-4 max-width-[1280px]">
+                <div className="flex gap-4">
                     <a
                         href={Content.footer.github}
                         target="_blank"
@@ -44,7 +35,7 @@ export default function Footer()
                     </a>
                 </div>
 
-                <div className="footer-info">
+                <div className="">
                     <p>© {Content.info.copyright.year} {Content.header.title}. {Content.info.copyright.content}</p>
                 </div>
             </div>

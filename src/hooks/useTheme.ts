@@ -1,5 +1,5 @@
 import {createContext, useContext} from 'react';
-import type {AppTheme} from "@/components/theme/interface/appTheme.ts";
+import type {AppTheme} from "@/components/theme/AppTheme.ts";
 
 type ThemeContextType = {
     theme: AppTheme;
